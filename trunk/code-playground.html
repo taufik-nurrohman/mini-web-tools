@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="id"><!-- Saved from http://code.google.com/p/hompimpa --><head><meta charset="utf-8"><title>Mini Code Playground</title><style type="text/css">*{margin:0;padding:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;-moz-box-sizing:border-box}html,body{height:100%;background-color:white;font:normal normal 13px Arial,Sans-Serif;color:black}#outer-wrapper{min-height:100%;margin:0 5px}#window-height{position:absolute;top:0;bottom:0;left:0;width:0;height:100%}.col-right,.col-left textarea{border:1px solid #999;margin:0 0;padding:0 0;overflow:auto;resize:none;display:block;background-color:white;font:normal bold 12px/1.4 "Consolas","Bitstream Vera Sans Mono","Courier New",Courier,Monospace;color:black;height:600px;outline:none}.col-left textarea:focus{border-color:#666}.col-left{width:40.5%;float:left;overflow:hidden}.col-left textarea{width:100%;background-color:#FAF093}.col-right{border-color:black;width:59%;float:right;margin:0 0;padding:0 0}#panel{height:30px;line-height:30px}#run,#output{font:normal bold 12px Arial,Sans-Serif;color:black;margin:0 0;cursor:pointer;text-decoration:none;background-color:#FFEE62;border:1px solid #999;padding:2px 7px}#run:hover,#output:hover{background-color:#F7E340}#code-field{color:#1C344B}#js-field{color:#4D341F;margin:1px 0 0}.clear{clear:both}.ie{background-color:red;color:white;font-weight:bold;font-style:italic;padding:10px 15px;display:block;position:fixed!important;position:absolute;top:0;right:0;bottom:0;left:0;z-index:99}</style></head><body spellcheck="false"><div id="window-height"></div><div id="outer-wrapper"><div id="panel"><a href="javascript:;" id="run">Tes!</a> <a href="javascript:;" id="output">URL Keluar</a> <a href="javascript:;" onclick="window.location.href=window.location.href.split('?')[0];" style="float:right;">Reset</a><div class="clear"></div></div><div class="col col-left"><textarea id="code-field" value="" placeholder="Markup"></textarea><textarea id="js-field" value="" placeholder="Khusus JavaScript"></textarea></div><iframe class="col col-right" name="preview" id="result-screen" src="javascript:;"></iframe><div class="clear"></div></div><script type="text/javascript">
+
+/* Mini Code Playground by Taufik Nurrohman => https://plus.google.com/108949996304093815163/about */
+var markup = document.getElementById('code-field'),
+	js = document.getElementById('js-field'),
+	screen = document.getElementById('result-screen'),
+	run = document.getElementById('run'),
+	share = document.getElementById('output');
+function playGround() {
+	if (window.location.search) {
+		var output = window.location.search.substr(8);
+		markup.innerHTML = decodeURIComponent(output.split('&js=')[0]);
+		js.innerHTML = decodeURIComponent(output.split('&js=')[1]);
+	} else {
+		markup.innerHTML = '<h2>Hello World!</h2>';
+		js.innerHTML = 'console.log(\'Khusus JavaScript\');';
+	}
+	var vals = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Output</title></head><body>'+markup.value+'<scr'+'ipt type="text/javascript">\n'+js.value+'\n</scr'+'ipt></body></html>';
+	vals = vals.replace(/<style(.*?)>/ig, '<style$1 scoped>');
+	window.preview.document.write("");
+	window.preview.document.open();
+	window.preview.document.write(vals);
+	window.preview.document.close();
+}
+run.onclick = playGround;
+share.onclick = function() {
+	var shareUrl = window.location.href.split('.html')[0]+'.html?markup='+encodeURIComponent(markup.value)+'&js='+encodeURIComponent(js.value),
+		message = (shareUrl.length > 10000) ? '(URL ini terlalu panjang. Anda yakin?)\nBagikan URL ini:' : 'Bagikan URL ini:';
+	prompt(message,shareUrl);
+}
+var h = document.getElementById('window-height').offsetHeight;
+markup.style.height = (h-36)/2+'px';
+js.style.height = (h-38)/2+'px';
+screen.style.height = (h-36)+'px';
+window.onload = playGround;
+
+</script><!--[if IE]><span class="ie">NOOO!!!</span><![endif]--></body></html>
