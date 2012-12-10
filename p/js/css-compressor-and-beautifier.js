@@ -48,7 +48,7 @@ function highlightCode(el) {
 /* CSS Compressor */
 function compressCSS(id) {
 	var cf = get(id),
-		iq = /@(media|-w|-m|-o|keyframes)(.*?)\{([\s\S]+?)?\}\}/ig,
+		iq = /@(media|-w|-m|-o|keyframes|page)(.*?)\{([\s\S]+?)?\}\}/ig,
 		v = cf.value,
 		ln = v.length;
 	v = (sa.checked || sc.checked) ? v.replace(/\/\*[\w\W]*?\*\//gm, "") : v.replace(/(\n+)?(\/\*[\w\W]*?\*\/)(\n+)?/gm, "\n$2\n");
@@ -78,16 +78,19 @@ function beautifyCSS(id) {
 	bi.checked = false;
 	compressCSS('cssField'); // Compress first...
 	var bf = get(id),
-		iq = /\n@(media|-w|-m|-o|keyframes)(.*?)\{([\s\S]+?)?\}\n\}/ig, // Inside `@query{}`
+		iq = /\n@(media|-w|-m|-o|keyframes|page)(.*?)\{([\s\S]+?)?\}\n\}/ig, // Inside `@query{}`
 		v = bf.value;
 	if (!il.checked) {
 		v = v.split(';').join(';\n  ');
 		v = v.split('{').join(' {\n  ');
 		v = v.split('}').join(';\n}\n');
+		v = v.replace(/\}([\n\s;]+?)?\}/g, "}\n}");
 		v = (bs.checked) ? v.replace(/\n(.*?)\{/g, function(m) {
 			return m.replace(/,/g, ",\n"); // Break multiple selectors
 		}) : v;
-		v = v.replace(/\}([\n\s;]+?)?\}/g, "}\n}");
+		v = v.replace(/@([\s\S]+?)\{/g, function(m) {
+			return m.replace(/,\n/g, ", ");
+		});
 		v = v.replace(iq, function(m) {
 			return m.replace(/\n/g, "\n  ").replace(/\n\s+\n/g, "\n").replace(/\}\n+\s+\}/g, "}\n}");
 		});
