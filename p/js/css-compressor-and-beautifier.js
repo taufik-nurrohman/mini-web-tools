@@ -65,7 +65,7 @@ function compressCSS(id) {
 	v = (cm.checked) ? v.replace(/;\}/g, "}") : v.replace(/\}/g,";}").replace(/;+\}/g,";}").replace(/\};\}/g,"}}");
 	v = v.replace(/\:0(px|em|pt)/ig, ":0");
 	v = v.replace(/ 0(px|em|pt)/ig, " 0");
-	v = v.replace(/ +?(\>|\+|\~) +?/g,"$1");
+	//v = v.replace(/ +?(\>|\+|\~) +?/g,"$1");
 	v = v.replace(/\s+\!important/ig, "!important");
 	v = v.replace(/(^\n+|\n+$)/, "");
 	cf.value = v;
@@ -115,7 +115,7 @@ function beautifyCSS(id) {
 	v = v.replace(/\!important/g, " !important");
 	v = v.replace(/data: ?image(.*?);([\n\r\t\s]+)base64, ?/g, "data:image$1;base64,"); // Data URI Image
 	v = v.replace(/\n\s+@(.*?)\{\n    /g, "\n\n@$1{\n  ");
-	v = v.replace(/(\>|\+|\~)/g," $1 ");
+	//v = v.replace(/(\>|\+|\~)/g," $1 ");
 	v = (ip.checked) ? v.replace(/(.*){(\n\s+|\t)(.*)\:(.*);\n(\s+)?}/g, "$1{$3:$4;}") : v;
 	v = (rs.checked) ? v.replace(/\{(.*?)\;(\s+)?\}/g, "{$1$2}") : v;
 	v = (tt.checked && to[0].checked) ? v.split(/  /).join('\t') : v;
