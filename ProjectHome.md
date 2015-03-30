@@ -1,0 +1,1 @@
+Kebanyakan berbasis JavaScript. Untuk keperluan mempercepat pekerjaan. Lebih banyak berhubungan dengan teks.
