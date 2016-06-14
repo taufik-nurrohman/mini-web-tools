@@ -1,1 +1,68 @@
-<!DOCTYPE html><html><head><meta charset="utf-8"><title>\n to &lt;p&gt;</title><link href="img/favicon.ico" rel="shortcut icon"><link rel="stylesheet" href="css/br-to-paragraph.css" type="text/css" media="screen"></head><body><h1>Auto Replace Line Break (<span>\n\n</span>) to Paragraph Tag (<span>&lt;p&gt;</span>)</h1><div class="group"><div class="left-side"><h2>Write or Paste Something Here:</h2><textarea id="field" spellcheck="false"></textarea></div><div class="right-side"><h2>Raw Code (Copy &amp; Paste):</h2><textarea id="copy-code"></textarea></div><div class="clear"></div></div><div class="group"><h2>Extra Option</h2><div class="left-side"><p><input type="checkbox" id="ck-1"> <label for="ck-1">Replace <code>&lt;b&gt;</code> to <code>&lt;strong&gt;</code>, <code>&lt;i&gt;</code> to <code>&lt;em&gt;</code></label></p><p><input type="checkbox" id="ck-2"> <label for="ck-2">Replace <code>&lt;span style="font-weight:bold;"&gt;</code> to <code>&lt;strong&gt;</code>, <code>&lt;span style="font-style:italic;"&gt;</code> to <code>&lt;em&gt;</code></label></p></div><div class="right-side"><button id="run-button">Convert!</button></div><div class="clear"></div></div><div class="group"><div class="left-side hidden"><h2>Highlighted Code (Check for the Wrong Generated Code)</h2><div id="result"></div></div><div class="right-side hidden"><h2>Preview:</h2><div id="preview"></div></div><div class="clear"></div></div><div class="footer">Mini Web Tools by <a href="https://plus.google.com/108949996304093815163/about">Taufik Nurrohman</a></div><script type="text/javascript" src="js/br-to-paragraph.js"></script></body></html>
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8">
+      <title>\n to &lt;p&gt;</title>
+      <link href="../img/favicon.ico" rel="shortcut icon">
+      <link rel="stylesheet" href="../css/br-to-paragraph.css" type="text/css" media="screen">
+   </head>
+   <body>
+      <h1>Auto Replace Line Break (
+         <span>\n\n</span>) to Paragraph Tag (
+         <span>&lt;p&gt;</span>)
+      </h1>
+      <div class="group">
+         <div class="left-side">
+            <h2>Write or Paste Something Here:</h2>
+            <textarea id="field" spellcheck="false"></textarea>
+         </div>
+         <div class="right-side">
+            <h2>Raw Code (Copy &amp; Paste):</h2>
+            <textarea id="copy-code"></textarea>
+         </div>
+         <div class="clear"></div>
+      </div>
+      <div class="group">
+         <h2>Extra Option</h2>
+         <div class="left-side">
+            <p>
+               <input type="checkbox" id="ck-1">
+               <label for="ck-1">Replace 
+               <code>&lt;b&gt;</code> to 
+               <code>&lt;strong&gt;</code>, 
+               <code>&lt;i&gt;</code> to 
+               <code>&lt;em&gt;</code>
+               </label>
+            </p>
+            <p>
+               <input type="checkbox" id="ck-2">
+               <label for="ck-2">Replace 
+               <code>&lt;span style="font-weight:bold;"&gt;</code> to 
+               <code>&lt;strong&gt;</code>, 
+               <code>&lt;span style="font-style:italic;"&gt;</code> to 
+               <code>&lt;em&gt;</code>
+               </label>
+            </p>
+         </div>
+         <div class="right-side">
+            <button id="run-button">Convert!</button>
+         </div>
+         <div class="clear"></div>
+      </div>
+      <div class="group">
+         <div class="left-side hidden">
+            <h2>Highlighted Code (Check for the Wrong Generated Code)</h2>
+            <div id="result"></div>
+         </div>
+         <div class="right-side hidden">
+            <h2>Preview:</h2>
+            <div id="preview"></div>
+         </div>
+         <div class="clear"></div>
+      </div>
+      <div class="footer">Mini Web Tools by 
+         <a href="https://plus.google.com/108949996304093815163/about">Taufik Nurrohman</a>
+      </div>
+      <script type="text/javascript" src="../js/br-to-paragraph.js"></script>
+   </body>
+</html>
