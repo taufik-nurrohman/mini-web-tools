@@ -134,6 +134,7 @@ function validate(text) {
     text = text.replace(RegExp('<([-:\\w]+?)(\\s[^<>]*?)? *\\/?>', 'g'), '<$1$2>');
     // remove `border` and `type` attribute
     text = text.replace(/ (frame)?border="\d+"| type="text\/(css|javascript)"/g, "");
+    text = text.replace(/ (frame)?border='\d+'| type='text\/(css|javascript)'/g, "");
     return text;
 }
 
