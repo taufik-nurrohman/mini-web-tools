@@ -102,10 +102,14 @@ function validate(text) {
     // replace `<center>` tag
     text = text.replace(RegExp('<center(' + Z + ')([\\s\\S]*?)<\\/center>', 'g'), '<div class="text-center"$1$2</div>');
     // remove tag(s)
-    var remove = ['blink', 'marquee'];
+    var remove = d.getElementById('x');
+        remove = remove ? remove.value.split(/\s*,\s*|\s+/) : ['blink', 'marquee'];
     for (var i in remove) {
         t = remove[i];
         text = text.replace(RegExp('<' + t + '(?:' + Z + ')([\\s\\S]*?)<\\/' + t + '>', 'g'), '$1');
+        // handle invalid markup
+        text = text.replace(RegExp('<' + t + '(?:' + Z + ')', 'g'), "");
+        text = text.replace(RegExp('<\\/' + t + '>', 'g'), "");
     }
     // replace obsolete attribute(s) with inline style(s)
     text = text.replace(/<([-:\w]+?)(.*?) *\/?>/g, function(a, b, c) {
