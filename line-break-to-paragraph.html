@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Convert Line Break to Paragraph</title>
+    <link href="img/favicon.ico" rel="shortcut icon">
+    <link href="css/line-break-to-paragraph.css" rel="stylesheet">
+  </head>
+  <body>
+    <p>
+      <label><input type="checkbox" id="p" checked> Convert Line Break to Paragraph</label>
+      <br>
+      <label><input type="checkbox" id="b" checked> Blogger</label>
+    </p>
+    <hr>
+    <fieldset>
+      <legend>Input</legend>
+      <textarea id="input"></textarea>
+    </fieldset>
+    <fieldset>
+      <legend>Output</legend>
+      <textarea id="output" onfocus="this.select();"></textarea>
+    </fieldset>
+    <iframe id="view"></iframe>
+    <script src="js/line-break-to-paragraph.js"></script>
+  </body>
+</html>

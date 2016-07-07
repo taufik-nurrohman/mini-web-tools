@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="id">
+  <!-- Saved from https://github.com/tovic/mini-web-tools -->
+  <head>
+    <meta charset="utf-8">
+    <title>Mini Code Playground</title>
+    <link rel="shortcut icon" href="img/favicon.ico">
+    <style>*{margin:0;padding:0;-webkit-box-sizing:border-box;-moz-box-sizing:border-box;box-sizing:border-box}html,body{height:100%;min-height:100%;background-color:white;font:normal normal 12px/1.4 Arial,Sans-Serif;color:black}#outer-wrapper{margin:0 5px}input::-moz-focus-inner,button::-moz-focus-inner{margin:0;padding:0;border:none;outline:none}.col-right,.col-left,textarea{border:1px solid #999;overflow:auto;resize:none;display:block;background-color:white;font:normal bold 12px/1.4 Consolas,"Andale Mono WT","Andale Mono","Lucida Console","Lucida Sans Typewriter","DejaVu Sans Mono","Bitstream Vera Sans Mono","Liberation Mono","Nimbus Mono L",Monaco,"Courier New",Courier,Monospace;color:inherit;height:600px;outline:none}.col-left textarea:focus{border-color:#666}.col-left{width:40.5%;height:auto;border:none;float:left;overflow:hidden}.col-left textarea{width:100%;background-color:#FAF093}.col-right{border-color:black;width:59%;float:right}#panel{height:30px;line-height:30px}#run,#output{font:inherit;font-weight:bold;font-size:100%;color:inherit;cursor:pointer;text-decoration:none;background-color:#FFEE62;border:1px solid #999;padding:2px 7px}#run:hover,#output:hover{background-color:#F7E340}#code-field{color:#1C344B}#js-field{color:#4D341F;margin:1px 0 0}.clear{clear:both}.ie{background-color:red;color:white;font-weight:bold;font-style:italic;padding:15px;display:block;position:fixed!important;position:absolute;top:0;right:0;bottom:0;left:0;z-index:99}</style>
+  </head>
+  <body spellcheck="false">
+    <div id="outer-wrapper">
+      <div id="panel">
+        <a href="javascript:;" id="run">Apply Changes</a>
+        <a href="javascript:;" id="output" style="display:none;">URL Keluar</a>
+        <a href="code-playground.html" style="float:right;">Reset</a>
+        <div class="clear"></div>
+      </div>
+      <div class="col col-left">
+        <textarea id="css-field" value="" placeholder="CSS"></textarea>
+        <textarea id="code-field" value="" placeholder="HTML"></textarea>
+      </div>
+        <iframe class="col col-right" name="preview" id="result-screen" src="about:blank"></iframe>
+        <div class="clear"></div>
+      </div>
+      <script>
+
+/* Mini Code Playground by Taufik Nurrohman => https://plus.google.com/108949996304093815163/about */
+(function(a, b) {
+    var css = b.getElementById('css-field'),
+        markup = b.getElementById('code-field'),
+        screen = b.getElementById('result-screen'),
+        run = b.getElementById('run'),
+        share = b.getElementById('output'),
+        output, vals;
+    function playGround() {
+        if (a.location.search) {
+            output = a.location.search.substr(5).split('&markup=');
+            css.value = decodeURIComponent(output[0]);
+            markup.value = decodeURIComponent(output[1]);
+        } else {
+            css.value = 'body {background-color:skyblue}';
+            markup.value = '<h2>Hello World!</h2>';
+        }
+        runCode();
+    }
+    function runCode() {
+        vals = '<!DOCTYPE html><html><head><meta charset="utf-8"><title>Output</title><style type="text/css">' + css.value + '</style></head><body>' + markup.value + '</body></html>',
+            ifr = a.preview.contentDocument ? a.preview.contentDocument : a.preview.contentWindow ? a.preview.contenta.document : a.preview.document;
+        if (ifr) {
+            ifr.open();
+            ifr.writeln(vals);
+            ifr.close();
+        } else {
+            alert('Cannot inject dynamic contents into iframe.');
+        }
+    }
+    function setHeight(h) {
+        h = a.innerHeight;
+        css.style.height = (h-36)/2+'px';
+        markup.style.height = (h-38)/2+'px';
+        screen.style.height = (h-36)+'px';
+    } setHeight();
+    run.onclick = runCode;
+    share.onclick = function() {
+            shareUrl = a.location.href.split('.html')[0]+'.html?css=' + encodeURIComponent(css.value).replace(/'/g,"%27") + '&markup=' + encodeURIComponent(markup.value).replace(/'/g,"%27"),
+            message = (shareUrl.length > 10000) ? '(URL ini terlalu panjang. Anda yakin?)\nBagikan URL ini:' : 'Bagikan URL ini:';
+        a.prompt(message, shareUrl);
+    };
+    a.onload = playGround;
+    a.onresize = setHeight;
+})(window, document);
+        
+        </script>
+        <!--[if lt IE 9]>
+            <span class="ie">NOOO!!!</span>
+        <![endif]-->
+    </body>
+</html>

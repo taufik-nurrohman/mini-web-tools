@@ -1,111 +1,81 @@
 <!DOCTYPE html>
 <html dir='ltr'>
-   <head>
-      <meta charset='utf-8'>
-      <meta content='width=device-width,initial-scale=1,maximum-scale=1' name='viewport'>
-      <meta content='online css compressor,online css beautifier,online css decompressor' name='keywords'>
-      <meta content='Lightweight CSS tool for quick time editing' name='description'>
-      <meta content='Taufik Nurrohman' name='author'>
-      <title>Online CSS Compressor & Beautifier</title>
-      <link href='../img/favicon.ico' rel='shortcut icon'>
-      <link rel='stylesheet' href='../css/css-compressor-and-beautifier.css' type='text/css' media='screen'>
-   </head>
-   <body>
-      <div id='page-wrap'>
-         <div class='addthis_toolbox addthis_default_style right'>
-            <a class='addthis_counter addthis_pill_style'></a>
-         </div>
-         <h2>Compress or Beautify CSS Code:</h2>
-         <div class='clear'></div>
-         <div class='col left'>
-            <span class='right'>
-            <input type='checkbox' id='highlightCode' checked>
-            <label for='highlightCode'>Show highlighted code?</label>
-            <button onclick='clearField("cssField");'>Clear Field</button>
-            <button onclick='selectAll("cssField");'>Select All</button>
-            </span>
-            <span class='clear'></span>
-            <textarea spellcheck='false' id='cssField' placeholder='Paste your CSS code here...' autofocus></textarea>
-         </div>
-         <div class='col right'>
-            <div class='button-group'>
-               <div class='box'>
-                  <p>
-                     <input type='checkbox' id='stripAllComment'>
-                     <label for='stripAllComment'>Strip all comments</label>
-                  </p>
-                  <p>
-                     <input type='checkbox' id='superCompact'>
-                     <label for='superCompact'>Super compact</label>
-                  </p>
-                  <p>
-                     <input type='checkbox' id='betterIndentation'>
-                     <label for='betterIndentation'>Keep indentation inside 
-                     <code>@query {}</code>
-                     </label>
-                  </p>
-                  <p>
-                     <input type='checkbox' id='keepLastComma' checked>
-                     <label for='keepLastComma'>Remove the last semicolon</label>
-                  </p>
-               </div>
-               <button onclick='compressCSS("cssField");'>Compress CSS</button>
-            </div>
-            <div class='button-group'>
-               <div class='box'>
-                  <p>
-                     <input type='checkbox' id='inlineLayout' onchange='beautifyCSS("cssField");'>
-                     <label for='inlineLayout'>Inline layout mode</label>
-                  </p>
-                  <p>
-                     <input type='checkbox' onchange='beautifyCSS("cssField");' id='toTab'>
-                     <label for='toTab'>Replace double space indentation with:</label>
-                     <br>&emsp;&nbsp;
-                     <span id="tabOpt">
-                     <input type='radio' name='op' id='op-1' onchange='beautifyCSS("cssField");'>
-                     <label for='op-1'>A tab character</label>
-                     <input type='radio' name='op' id='op-2' onchange='beautifyCSS("cssField");'>
-                     <label for='op-2'>4 space</label>
-                     </span>
-                  </p>
-                  <p>
-                     <input type='checkbox' onchange='beautifyCSS("cssField");' id='breakSelector' checked>
-                     <label for='breakSelector'>Break multiple selector (e.g: 
-                     <code>html,
-                     <span style='color:darkred;'>\n</span>body,
-                     <span style='color:darkred;'>\n</span>table {}
-                     </code>)
-                     </label>
-                  </p>
-                  <p>
-                     <input type='checkbox' onchange='beautifyCSS("cssField");' id='spaceBetween'>
-                     <label for='spaceBetween'>Space after 
-                     <code>:</code> and 
-                     <code>,</code>
-                     </label>
-                  </p>
-                  <p>
-                     <input type='checkbox' onchange='beautifyCSS("cssField");' id='inlineSingleProp'>
-                     <label for='inlineSingleProp'>Inline bracket for single property</label>
-                  </p>
-                  <p>
-                     <input type='checkbox' onchange='beautifyCSS("cssField");' id='removeLastSemicolon'>
-                     <label for='removeLastSemicolon'>Remove the last semicolon in single property</label>
-                  </p>
-                  <p>
-                     <input type='checkbox' onchange='beautifyCSS("cssField");' id='singleBreak'>
-                     <label for='singleBreak'>Compact line break</label>
-                  </p>
-               </div>
-               <button onclick='beautifyCSS("cssField");'>Beautify CSS</button>
-            </div>
-         </div>
-         <div class='clear'></div>
-         <h2 class='hidden'>Highlighted Code:</h2>
-         <pre id='highlightedResult'>
-            <code>
-            <span class="cm">/* ================= Supported layout/pattern: ================= */</span>
-            
+  <head>
+    <meta charset='utf-8'>
+    <meta content='width=device-width,initial-scale=1,maximum-scale=1' name='viewport'>
+    <meta content='online css compressor,online css beautifier,online css decompressor' name='keywords'>
+    <meta content='Lightweight CSS tool for quick time editing' name='description'>
+    <meta content='Taufik Nurrohman' name='author'>
+    <title>Online CSS Compressor & Beautifier</title>
+    <link href='img/favicon.ico' rel='shortcut icon'>
+    <link rel='stylesheet' href='css/css-compressor-and-beautifier.css' type='text/css' media='screen'>
+  </head>
+  <body>
+    <div id='page-wrap'>
+      <div class='addthis_toolbox addthis_default_style right'>
+      <a class='addthis_counter addthis_pill_style'></a>
+    </div>
+    <h2>Compress or Beautify CSS Code:</h2>
+      <div class='clear'></div>
+      <div class='col left'>
+        <span class='right'>
+          <input type='checkbox' id='highlightCode' checked>
+          <label for='highlightCode'>Show highlighted code?</label>
+          <button onclick='clearField("cssField");'>Clear Field</button>
+          <button onclick='selectAll("cssField");'>Select All</button>
+        </span>
+        <span class='clear'></span>
+        <textarea spellcheck='false' id='cssField' placeholder='Paste your CSS code here...' autofocus></textarea>
+      </div>
+      <div class='col right'>
+        <div class='button-group'>
+          <div class='box'>
+            <p>
+              <input type='checkbox' id='stripAllComment'> <label for='stripAllComment'>Strip all comments</label>
+            </p>
+            <p>
+              <input type='checkbox' id='superCompact'> <label for='superCompact'>Super compact</label>
+            </p>
+            <p>
+              <input type='checkbox' id='betterIndentation'> <label for='betterIndentation'>Keep indentation inside <code>@query {}</code></label>
+            </p>
+            <p>
+              <input type='checkbox' id='keepLastComma' checked> <label for='keepLastComma'>Remove the last semicolon</label>
+            </p>
+          </div>
+          <button onclick='compressCSS("cssField");'>Compress CSS</button>
+        </div>
+        <div class='button-group'>
+          <div class='box'>
+            <p>
+              <input type='checkbox' id='inlineLayout' onchange='beautifyCSS("cssField");'> <label for='inlineLayout'>Inline layout mode</label>
+            </p>
+            <p>
+              <input type='checkbox' onchange='beautifyCSS("cssField");' id='toTab'> <label for='toTab'>Replace double space indentation with:</label><br>&emsp;&nbsp;<span id="tabOpt"><input type='radio' name='op' id='op-1' onchange='beautifyCSS("cssField");'> <label for='op-1'>A tab character</label> <input type='radio' name='op' id='op-2' onchange='beautifyCSS("cssField");'> <label for='op-2'>4 space</label></span>
+            </p>
+            <p>
+              <input type='checkbox' onchange='beautifyCSS("cssField");' id='breakSelector' checked> <label for='breakSelector'>Break multiple selector (e.g: <code>html,<span style='color:darkred;'>\n</span>body,<span style='color:darkred;'>\n</span>table {}</code>)</label>
+            </p>
+            <p>
+              <input type='checkbox' onchange='beautifyCSS("cssField");' id='spaceBetween'> <label for='spaceBetween'>Space after <code>:</code> and <code>,</code></label>
+            </p>
+            <p>
+              <input type='checkbox' onchange='beautifyCSS("cssField");' id='inlineSingleProp'> <label for='inlineSingleProp'>Inline bracket for single property</label>
+            </p>
+            <p>
+              <input type='checkbox' onchange='beautifyCSS("cssField");' id='removeLastSemicolon'> <label for='removeLastSemicolon'>Remove the last semicolon in single property</label>
+            </p>
+            <p>
+              <input type='checkbox' onchange='beautifyCSS("cssField");' id='singleBreak'> <label for='singleBreak'>Compact line break</label>
+            </p>
+          </div>
+          <button onclick='beautifyCSS("cssField");'>Beautify CSS</button>
+        </div>
+      </div>
+      <div class='clear'></div>
+      <h2 class='hidden'>Highlighted Code:</h2>
+            <pre id='highlightedResult'><code><span class="cm">/* ================= Supported layout/pattern: ================= */</span>
+
 <span class="cm">/* -------- [1]. CSS Compressor -------- */</span>
 
 <span class="cm">/* a. Normal */</span>
@@ -196,15 +166,11 @@
 #foo .bg-4 <span class="pn">{</span><span class="pr">background-position</span><span class="pn">:</span><span class="vl">0 100%</span><span class="pn">}</span>
 
 <span class="cm">/* g. Inline layout mode */</span>
-#foo .bg <span class="pn">{</span><span class="pr"> position</span><span class="pn">:</span><span class="vl">absolute</span><span class="pn">;</span><span class="pr"> top</span><span class="pn">:</span><span class="vl">0</span><span class="pn">;</span><span class="pr"> right</span><span class="pn">:</span><span class="vl">0</span><span class="pn">;</span><span class="pr"> bottom</span><span class="pn">:</span><span class="vl">0</span><span class="pn">;</span><span class="pr"> left</span><span class="pn">:</span><span class="vl">0</span><span class="pn">;</span><span class="pr"> background</span><span class="pn">:</span><span class="vl">white url<span class="pn">(</span><span class="st">'img/bg-image.png'</span><span class="pn">)</span> no-repeat 0 0</span><span class="pn">;</span> <span class="pn">}</span>            
-            
-            </code>
-         </pre>
-      </div>
-      <div class='footer'>A regular expression experiment by 
-         <a href='https://plus.google.com/108949996304093815163/posts' title='Updated: 25 October 2012'>Taufik Nurrohman</a>
-      </div>
-      <script type='text/javascript' src='../js/css-compressor-and-beautifier.js'></script>
-      <script type='text/javascript' src='http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4dfacea85b106d59'></script>
-   </body>
+#foo .bg <span class="pn">{</span><span class="pr"> position</span><span class="pn">:</span><span class="vl">absolute</span><span class="pn">;</span><span class="pr"> top</span><span class="pn">:</span><span class="vl">0</span><span class="pn">;</span><span class="pr"> right</span><span class="pn">:</span><span class="vl">0</span><span class="pn">;</span><span class="pr"> bottom</span><span class="pn">:</span><span class="vl">0</span><span class="pn">;</span><span class="pr"> left</span><span class="pn">:</span><span class="vl">0</span><span class="pn">;</span><span class="pr"> background</span><span class="pn">:</span><span class="vl">white url<span class="pn">(</span><span class="st">'img/bg-image.png'</span><span class="pn">)</span> no-repeat 0 0</span><span class="pn">;</span> <span class="pn">}</span></code></pre>
+    </div>
+    <div class='footer'>A regular expression experiment by <a href='https://plus.google.com/108949996304093815163/posts' title='Updated: 25 October 2012'>Taufik Nurrohman</a>
+    </div>
+    <script type='text/javascript' src='js/css-compressor-and-beautifier.js'></script>
+    <script type='text/javascript' src='http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4dfacea85b106d59'></script>
+  </body>
 </html>

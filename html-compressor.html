@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html dir="ltr">
+  <!-- https://plus.google.com/108949996304093815163/about -->
+  <head>
+    <meta charset="utf-8">
+    <title>HTML Compressor</title>
+    <link href="img/favicon.ico" rel="shortcut icon">
+    <style>*{margin:0;padding:0}body{background-color:white;text-align:center;padding:50px 50px}textarea{display:block;text-align:left;width:98%;height:250px;border:1px solid black;background-color:white;font:normal 12px/15px "Inconsolata","Monaco","Consolas","Andale Mono","Bitstream Vera Sans Mono","Courier New",Courier,monospace;color:black;margin:10px auto;padding:0 0}button{cursor:pointer}</style>
+  </head>
+  <body>
+    <h1>Mini HTML Compressor</h1>
+    <textarea id="ta" spellcheck="false"></textarea>
+    <button id="bt">Compress HTML</button><script>(function(){var ta=document.getElementById('ta'),bt=document.getElementById('bt');function compress(){var v=ta.value;v=v.replace(/(>)?\s+/g,'$1 ');v=v.replace(/([\n\r\t ]+)</g,'<');ta.value=v;ta.focus();ta.select()}bt.onclick=compress})();</script>
+  </body>
+</html>
