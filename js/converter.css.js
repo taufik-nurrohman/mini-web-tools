@@ -96,12 +96,13 @@ function tidy_raw(text) {
                     s = s.replace(/,$/, "");
                     s = s.replace(/\s*([~+>])\s*/g, ' $1 ');
                     s = s.replace(/(\S)\s+(\S)/g, '$1 $2');
+                    s = s.replace(/\(([a-z0-9\-]+?)\s*:\s*(.*?)\)/g, '($1: $2)');
                 } else {
                     s = trim(s).replace(/(\s*;\s*)+/g, ';');
                     s = s.replace(/;$/, "");
                     s = s.replace(/;/g, ';\n' + indent());
+                    s = s.replace(/([a-z0-9\-]+?)\s*:\s*(.*?)(?=;|$)/g, '$1: $2');
                 }
-                s = s.replace(/([a-z0-9\-]+?)\s*:\s*(.*?)(?=;|$)/g, '$1: $2');
                 s = indent() + s;
             }
             s = s.replace(/\s*,\s*/g, ', ');
@@ -109,6 +110,7 @@ function tidy_raw(text) {
         }
         output += s;
     }
+    output = output.replace(/("(?:[^"\\]|\\.)*?"|'(?:[^'\\]|\\.)*?')\s*/g, '$1');
     output = output.replace(/\n\s*;\s*\n/g, '\n');
     // empty selector(s)
     output = output.replace(/\{\s*\}/g, '{}');
