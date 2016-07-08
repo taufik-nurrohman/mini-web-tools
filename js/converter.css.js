@@ -156,6 +156,7 @@ function uglify(text) {
         return b + '{';
     });
     text = text.replace(/\s*([~+>:;,\[\]\(\)\{\}]|!important)\s*/g, '$1');
+    // minify HEX color code
     text = text.replace(/#([a-f0-9]{6})(?=[;,\s\}]|$)/g, function(a, b) {
         var min = "";
         b = b.toLowerCase();
@@ -165,7 +166,7 @@ function uglify(text) {
         return '#' + min;
     });
     // remove empty selector(s)
-    text = text.replace(/(^|\})[^\{\}]*?\{\}/g, '$1');
+    text = text.replace(/(^|[\{\}])[^\{\}]*?\{\}/g, '$1');
     // option(s)
     text = text.replace(/([^\{\}]+?)\{(.*?);?(\}+)/g, '$1{$2$3' + (a_b.checked ? '\n' : ""));
     text = text.replace(/\s*(\/\*[\s\S]*?\*\/)\s*/g, function(a, b) {
@@ -189,14 +190,14 @@ input.onkeyup = run;
 input.oninput = run;
 input.onpaste = run;
 
-mode.onchange = function() {
-    var f = this.parentNode.parentNode.parentNode.getElementsByTagName('fieldset');
-    f[1].style.display = this.value == 0 ? 'block' : 'none';
-    f[0].style.display = this.value == 1 ? 'block' : 'none';
+function change() {
+    var f = mode.parentNode.parentNode.parentNode.getElementsByTagName('fieldset');
+    f[1].style.display = mode.value == 0 ? 'block' : 'none';
+    f[0].style.display = mode.value == 1 ? 'block' : 'none';
     run();
-};
+} change();
 
-mode.parentNode.parentNode.parentNode.getElementsByTagName('fieldset')[1].style.display = 'none';
+mode.onchange = change;
 
 r_c.onchange = run;
 a_b.onchange = run;

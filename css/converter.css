@@ -68,7 +68,8 @@ iframe {
   padding:.5em 1em 1em;
 }
 fieldset fieldset,
-p:last-of-type {margin-bottom:0}
+fieldset + p,
+main + p {margin-bottom:0}
 fieldset fieldset + fieldset {margin-top:1em}
 iframe {
   padding:0;
