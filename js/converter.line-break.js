@@ -193,7 +193,7 @@ function run(e) {
         if (p.checked) v = paragraph(v);
         output.value = v;
         view.src = 'data:text/html;charset=utf-8,' + escape(v.replace(/"\/\//g, '"http://') + '<style>html,body{margin:0;padding:.5em}</style>');
-    }, 100);
+    }, 1);
 }
 
 input.onkeyup = run;

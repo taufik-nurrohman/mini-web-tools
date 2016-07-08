@@ -11,6 +11,10 @@ html {
   color:black;
   padding:1em;
 }
+a {
+  color:blue;
+  text-decoration:none;
+}
 button,
 input,
 select,
@@ -22,6 +26,7 @@ textarea {
   font:inherit;
   line-height:normal;
   padding:2px;
+  width:12em;
 }
 label {
   display:inline-block;
@@ -42,30 +47,38 @@ input[type=submit] {
   padding-right:6px;
   padding-left:6px;
   cursor:pointer;
+  width:auto;
 }
+input[type=checkbox],
+input[type=radio] {width:auto}
 p {margin:0 0 1em}
 textarea {
   display:block;
   width:100%;
-  min-height:300px;
+  min-height:30em;
   line-height:1;
   font-family:"Courier New",Courier,"Nimbus Mono L",Monospace;
+  resize:vertical;
 }
-fieldset {
-  border:0;
-  margin:0 0 1em;
-  padding:.5em 0 0;
-  width:49.5%;
-  float:left;
-}
-fieldset + fieldset {float:right}
-legend {font-weight:bold}
+fieldset,
 iframe {
   display:block;
-  clear:both;
-  width:100%;
-  height:300px;
   border:1px solid;
+  margin:0 0 1em;
+  padding:.5em 1em 1em;
+}
+fieldset fieldset,
+p:last-of-type {margin-bottom:0}
+fieldset fieldset + fieldset {margin-top:1em}
+iframe {
+  padding:0;
+  border:0;
+  width:100%;
+  height:30em;
+}
+legend {
+  font-weight:bold;
+  padding:0 .2em;
 }
 hr {
   border:0;
@@ -73,4 +86,29 @@ hr {
   color:inherit;
   height:0;
   margin:0 0 1em;
+}
+main {
+  overflow:hidden;
+  margin-bottom:1em;
+}
+main div {
+  width:50%;
+  float:left;
+}
+main div + div {float:right}
+main div fieldset {margin:0 .5em 0 0}
+main div + div fieldset {margin:0 0 0 .5em}
+@media (max-width:600px) {
+  main div,
+  main div + div {
+    float:none;
+    display:block;
+    width:auto;
+  }
+  main div + div {margin-top:1em}
+  main div fieldset,
+  main div + div fieldset {
+    margin-right:0;
+    margin-left:0;
+  }
 }
