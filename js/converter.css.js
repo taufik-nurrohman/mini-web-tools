@@ -182,7 +182,9 @@ function run() {
     v = mode.value == 0 ? uglify(v) : beautify(v);
     if (mode.value == 1 && i_m.checked) {
         v = v.replace(/\s*\}/g, ' }');
+        v = v.replace(/\}\s*/g, '} ');
         v = v.replace(/\{\s*/g, '{ ');
+        v = v.replace(/\s*\{/g, ' {');
         v = v.replace(/;\n\s*/g, '; ');
     }
     output.value = tidy(v);
