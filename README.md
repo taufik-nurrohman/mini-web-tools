@@ -10,7 +10,7 @@ List of tools available:
  - [Line Break to Paragraph](https://cdn.rawgit.com/tovic/mini-web-tools/master/converter.line-break.html)
  - [Code Playground](https://cdn.rawgit.com/tovic/mini-web-tools/master/code-playground.html)
  - [CSS Beautify, CSS Uglify](https://cdn.rawgit.com/tovic/mini-web-tools/master/converter.css.html)
- - [CSS Compressor and Beautifier (Old)](https://cdn.rawgit.com/tovic/mini-web-tools/master/css-compressor-and-beautifier.html)
+ - [CSS Compressor and Beautifier (Old)](https://cdn.rawgit.com/tovic/mini-web-tools/master/css-compressor-and-beautifier.old.html)
  - [CSS Grid Calculator](https://cdn.rawgit.com/tovic/mini-web-tools/master/css-grid-calculator.html)
  - [Fake Image Map Generator](https://cdn.rawgit.com/tovic/mini-web-tools/master/fake-image-map-generator.html)
  - [HTML Compressor](https://cdn.rawgit.com/tovic/mini-web-tools/master/html-compressor.html)
@@ -19,5 +19,5 @@ List of tools available:
 Authors
 -------
 
- - [tovic](https://github.com/tovic) (Main Author)
+ - [tovic](https://github.com/tovic) (main author)
  - [RDCH106](https://github.com/RDCH106)
