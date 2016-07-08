@@ -42,8 +42,10 @@ function v(text) {
 
 function common(text) {
     // from `#abc` to `#aabbcc`
-    text = text.replace(/#([a-f0-9])([a-f0-9])([a-f0-9])(?=[;,\s\}]|$)/gi, function(a, b, c, d) {
-        return ('#' + b + b + c + c + d + d).toLowerCase(); 
+    text = text.replace(/#([a-f0-9]{6})(?=[;,\s\}]|$)/g, function(a, b) {
+        return b.toLowerCase();
+    }).replace(/#([a-f0-9])([a-f0-9])([a-f0-9])(?=[;,\s\}]|$)/gi, function(a, b, c, d) {
+        return '#' + b + b + c + c + d + d;
     });
     // from `0px` to `0`, `0.5px` to `.5px`
     text = text.replace(/\b(\d+\.)?(\d+)([a-z]+|%|\))/g, function(a, b, c, d) {
@@ -161,7 +163,6 @@ function uglify(text) {
     // minify HEX color code
     text = text.replace(/#([a-f0-9]{6})(?=[;,\s\}]|$)/g, function(a, b) {
         var min = "";
-        b = b.toLowerCase();
         min += b[0] === b[1] ? b[0] : b[0] + b[1];
         min += b[2] === b[3] ? b[2] : b[2] + b[3];
         min += b[4] === b[5] ? b[4] : b[4] + b[5];
