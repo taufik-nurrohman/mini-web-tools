@@ -159,7 +159,9 @@ function blogger(text) {
             catatan: 'note',
             compare: false,
             full: 'expand',
-            reference: false
+            reference: false,
+            config: false,
+            border: false
         }
         var c = b.split(' '), o = "";
         for (var i in c) {
@@ -168,6 +170,7 @@ function blogger(text) {
         }
         return ' class="' + trim(o) + '"';
     });
+    text = text.replace(/<table class="/g, '<table class="border ');
     text = text.replace(/<span class="highlight">(.*?)<\/span>/g, '<mark>$1</mark>');
     text = text.replace(/<div class="reference-link">([\s\S]*?)<\/div>/g, '<hr>$1');
     text = text.replace(/\/\/hompimpaalaihumgambreng\./g, '//dte-feed.');
