@@ -41,10 +41,11 @@ function v(text) {
 }
 
 function common(text) {
-    // from `#abc` to `#aabbcc`
-    text = text.replace(/#([a-f0-9]{6})(?=[;,\s\}]|$)/g, function(a, b) {
+    text = text.replace(/#([a-f0-9]{3}|[a-f0-9]{6})(?=[;,\s\}]|$)/g, function(a, b) {
         return b.toLowerCase();
-    }).replace(/#([a-f0-9])([a-f0-9])([a-f0-9])(?=[;,\s\}]|$)/gi, function(a, b, c, d) {
+    });
+    // from `#abc` to `#aabbcc`
+    text = text.replace(/#([a-f0-9])([a-f0-9])([a-f0-9])(?=[;,\s\}]|$)/gi, function(a, b, c, d) {
         return '#' + b + b + c + c + d + d;
     });
     // from `0px` to `0`, `0.5px` to `.5px`
@@ -60,6 +61,8 @@ function common(text) {
     text = text.replace(/\bcalc\(\s*(.*?)\s*\)/g, function(a, b) {
         return 'calc(' + b.replace(/\s+/g, ' ') + ')';
     });
+    // tidy `!important`
+    text = text.replace(/\s*!important(?=[;\s\}]|$)/g, ' !important');
     return text;
 }
 
@@ -85,7 +88,6 @@ function tidy_raw(text) {
         }
         if (s[0] === '"' && s.slice(-1) === '"' || s[0] === "'" && s.slice(-1) === "'") {
             s = x(s);
-            // do nothing ...
         } else {
             if (s === '{') {
                 s = ' ' + s + '\n';
