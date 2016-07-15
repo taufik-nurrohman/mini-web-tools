@@ -11,14 +11,14 @@
     <fieldset>
       <legend>Settings</legend>
       <select id="mode">
-        <!-- option value="unicode_hex">Unicode (hex)</option -->
-        <option value="ascii_decimal" selected>ASCII (decimal)</option>
-        <option value="html_special_chars">Only HTML Special Characters</option>
-        <!-- option value="ascii_hex">ASCII (hex)</option -->
+        <option value="unicode_hex">Unicode (hex)</option>
+        <option value="html_encode_hex">HTML Entity (hex)</option>
+        <option value="html_encode_dec" selected>HTML Entity (dec)</option>
+        <option value="html_encode">HTML Special Characters</option>
       </select>
       <br>
       <br>
-      <label><input type="checkbox" id="n"> Allow Named Entities</label>
+      <label title="For HTML Entity (dec) and HTML Special Characters"><input type="checkbox" id="n"> Allow Named Entities</label>
       <br>
       <br>
       <button id="encode">Encode</button> <button id="decode">Decode</button>
