@@ -1,0 +1,6 @@
+[submodule "rdch106/Simple-RFC1738-Encoder"]
+	path = rdch106/Simple-RFC1738-Encoder
+	url = https://github.com/RDCH106/Simple-RFC1738-Encoder
+[submodule "rdch106/banner-code-snippet-generator"]
+	path = rdch106/banner-code-snippet-generator
+	url = https://github.com/RDCH106/banner-code-snippet-generator
