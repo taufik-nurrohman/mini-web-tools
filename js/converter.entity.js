@@ -6,6 +6,8 @@ var input = d.getElementById('input'),
     encode = d.getElementById('encode'),
     decode = d.getElementById('decode'),
     n = d.getElementById('n'),
+    a = d.getElementById('a'),
+    ascii = /^[ -~\t\n\r]$/, // ASCII and common white-space(s) to skip
     to = {};
 
 // <https://html.spec.whatwg.org/entities.json>
@@ -14,7 +16,12 @@ var named = {"9":"Tab","10":"NewLine","33":"excl","34":"quot","35":"num","36":"d
 to.unicode_hex = function(text) {
     var s = "", c;
     for (var i = 0, len = text.length; i < len; ++i) {
-        c = text[i].charCodeAt(0).toString(16).toUpperCase();
+        c = text[i];
+        if (a.checked && ascii.test(c)) {
+            s += c;
+            continue;
+        }
+        c = c.charCodeAt(0).toString(16).toUpperCase();
         while (c.length < 4) c = '0' + c;
         s += '\u005C\u0075' + c;
     }
@@ -24,7 +31,12 @@ to.unicode_hex = function(text) {
 to.html_encode_hex = function(text) {
     var s = "", c;
     for (var i = 0, len = text.length; i < len; ++i) {
-        c = text[i].charCodeAt(0).toString(16).toUpperCase();
+        c = text[i];
+        if (a.checked && ascii.test(c)) {
+            s += c;
+            continue;
+        }
+        c = c.charCodeAt(0).toString(16).toUpperCase();
         while (c.length < 4) c = '0' + c;
         s += '\u0026\u0023\u0078' + c + '\u003B';
     }
@@ -34,7 +46,12 @@ to.html_encode_hex = function(text) {
 to.html_encode_dec = function(text) {
     var s = "", c;
     for (var i = 0, len = text.length; i < len; ++i) {
-        c = text[i].charCodeAt(0);
+        c = text[i];
+        if (a.checked && ascii.test(c)) {
+            s += c;
+            continue;
+        }
+        c = c.charCodeAt(0);
         s += n.checked && named[c] ? '\u0026' + named[c] + '\u003B' : '\u0026\u0023' + c + '\u003B';
     }
     return s;

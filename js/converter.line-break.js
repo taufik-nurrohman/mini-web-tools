@@ -195,7 +195,7 @@ function run(e) {
         if (b.checked) v = blogger(v);
         if (p.checked) v = paragraph(v);
         output.value = v;
-        view.src = 'data:text/html;charset=utf-8,' + escape(v.replace(/"\/\//g, '"http://') + '<style>html,body{margin:0;padding:.5em}</style>');
+        view.src = 'data:text/html;charset=utf-8,' + encodeURIComponent(v.replace(/"\/\//g, '"http://') + '<style>html,body{margin:0;padding:.5em}</style>');
     }, 1);
 }
 
