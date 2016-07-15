@@ -27,22 +27,28 @@ function indent(text) {
 }
 
 function x(text) {
-    text = text.replace(/\s/g, '\\x0');
-    text = text.replace(/\{/g, '\\x1');
-    text = text.replace(/\}/g, '\\x2');
+    text = text.replace(/ /g, '\\x0');
+    text = text.replace(/\n/g, '\\x1');
+    text = text.replace(/\t/g, '\\x2');
+    text = text.replace(/\{/g, '\\x3');
+    text = text.replace(/\}/g, '\\x4');
     return text;
 }
 
 function v(text) {
     text = text.replace(/\\x0/g, ' ');
-    text = text.replace(/\\x1/g, '{');
-    text = text.replace(/\\x2/g, '}');
+    text = text.replace(/\\x1/g, '\n');
+    text = text.replace(/\\x2/g, '\t');
+    text = text.replace(/\\x3/g, '{');
+    text = text.replace(/\\x4/g, '}');
     return text;
 }
 
 function common(text) {
-    text = text.replace(/#([a-f0-9]{3}|[a-f0-9]{6})(?=[;,\s\}]|$)/g, function(a, b) {
-        return b.toLowerCase();
+    text = text.replace(/\r/g, "");
+    // lower-case hex color code
+    text = text.replace(/#([a-f0-9]{3}|[a-f0-9]{6})(?=[;,\s\}]|$)/gi, function(a, b) {
+        return '#' + b.toLowerCase();
     });
     // from `#abc` to `#aabbcc`
     text = text.replace(/#([a-f0-9])([a-f0-9])([a-f0-9])(?=[;,\s\}]|$)/gi, function(a, b, c, d) {
@@ -168,7 +174,7 @@ function uglify(text) {
         min += b[0] === b[1] ? b[0] : b[0] + b[1];
         min += b[2] === b[3] ? b[2] : b[2] + b[3];
         min += b[4] === b[5] ? b[4] : b[4] + b[5];
-        return '#' + min;
+        return '#' + (min.length === 3 ? min : b);
     });
     // remove empty selector(s)
     text = text.replace(/(^|[\{\}])[^\{\}]*?\{\}/g, '$1');
