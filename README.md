@@ -17,6 +17,8 @@ List of tools available:
  - [Fake Image Map Generator](https://rawgit.com/tovic/mini-web-tools/master/fake-image-map-generator.html)
  - [HTML Compressor](https://rawgit.com/tovic/mini-web-tools/master/html-compressor.html)
  - [Special Character Generator](https://rawgit.com/tovic/mini-web-tools/master/special-character-generator.html)
+ - [Simple RFC1738 Encoder](https://rawgit.com/RDCH106/Simple-RFC1738-Encoder/master/demo.html)
+ - [Banner Code Snippet Generator](https://rawgit.com/RDCH106/banner-code-snippet-generator/master/generator/banner-code-snippet-generator.html)
 
 Authors
 -------
