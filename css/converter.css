@@ -43,6 +43,7 @@ input[type=button],
 input[type=reset],
 input[type=submit] {
   background-color:black;
+  border-color:transparent;
   color:white;
   padding-right:6px;
   padding-left:6px;
