@@ -15,6 +15,8 @@ a {
   color:blue;
   text-decoration:none;
 }
+a:focus,
+a:hover {text-decoration:underline}
 button,
 input,
 select,
@@ -51,10 +53,24 @@ input[type=submit] {
   width:auto;
 }
 input[type=checkbox],
-input[type=radio] {width:auto}
+input[type=file],
+input[type=image],
+input[type=radio] {
+  width:auto;
+  height:auto;
+  min-width:0;
+  min-height:0;
+  margin:0;
+  padding:0;
+  background:none;
+  border:0;
+}
+input[type=file] {
+  font-size:86%;
+  cursor:pointer;
+}
 p {margin:0 0 1em}
 textarea {
-  display:block;
   width:100%;
   min-height:30em;
   line-height:1;
@@ -93,23 +109,24 @@ main {
   overflow:hidden;
   margin-bottom:1em;
 }
-main div {
+main > div {
   width:50%;
   float:left;
 }
-main div + div {float:right}
-main div fieldset {margin:0 .5em 0 0}
-main div + div fieldset {margin:0 0 0 .5em}
+main > div + div {float:right}
+main > div > fieldset {margin:0 .5em 0 0}
+main > div + div > fieldset {margin:0 0 0 .5em}
+main > div:only-child {width:100%}
 @media (max-width:600px) {
-  main div,
-  main div + div {
+  main > div,
+  main > div + div {
     float:none;
     display:block;
     width:auto;
   }
-  main div + div {margin-top:1em}
-  main div fieldset,
-  main div + div fieldset {
+  main > div + div {margin-top:1em}
+  main > div > fieldset,
+  main > div + div > fieldset {
     margin-right:0;
     margin-left:0;
   }

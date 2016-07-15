@@ -7,6 +7,7 @@ Automatically exported from [https://code.google.com/p/mini-web-tools](https://c
 
 List of tools available:
 
+ - [Base64 Converter](https://rawgit.com/tovic/mini-web-tools/master/converter.base64.html)
  - [HTML Entity Encode/Decode](https://rawgit.com/tovic/mini-web-tools/master/converter.entity.html)
  - [Line Break to Paragraph](https://rawgit.com/tovic/mini-web-tools/master/converter.line-break.html)
  - [Code Playground](https://rawgit.com/tovic/mini-web-tools/master/code-playground.html)
