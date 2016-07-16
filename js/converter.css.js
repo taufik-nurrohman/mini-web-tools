@@ -200,8 +200,9 @@ function run() {
 }
 
 input.onkeyup = run;
-input.oninput = run;
+input.oncut = run;
 input.onpaste = run;
+input.oninput = run;
 
 function change() {
     var f = mode.parentNode.parentNode.parentNode.getElementsByTagName('fieldset');
