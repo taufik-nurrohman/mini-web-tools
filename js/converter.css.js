@@ -47,28 +47,28 @@ function v(text) {
 function common(text) {
     text = text.replace(/\r/g, "");
     // lower-case hex color code
-    text = text.replace(/#([a-f0-9]{3}|[a-f0-9]{6})(?=[;,\s\}]|$)/gi, function(a, b) {
+    text = text.replace(/#([a-f0-9]{3}|[a-f0-9]{6})\b/gi, function(a, b) {
         return '#' + b.toLowerCase();
     });
     // from `#abc` to `#aabbcc`
-    text = text.replace(/#([a-f0-9])([a-f0-9])([a-f0-9])(?=[;,\s\}]|$)/gi, function(a, b, c, d) {
+    text = text.replace(/#([a-f0-9])([a-f0-9])([a-f0-9])\b/gi, function(a, b, c, d) {
         return '#' + b + b + c + c + d + d;
     });
     // from `0px` to `0`, `0.5px` to `.5px`
-    text = text.replace(/\b(\d+\.)?(\d+)([a-z]+|%|\))/g, function(a, b, c, d) {
+    text = text.replace(/\b(0\.)?(\d+)([a-z]+|%)/g, function(a, b, c, d) {
         b = b === '0.' ? '.' : b;
         b = b || "";
-        return b + c + (!b && c === '0' && d !== ')' ? "" : d);
+        return b + c + (!b && c === '0' ? "" : d);
     });
     // from `0 0` and `0 0 0` and `0 0 0 0` to `0`
-    text = text.replace(/\b0( 0){1,3}/g, '0');
-    text = text.replace(/\bbackground-position:\s*0(?=[;,\s\}]|$)/g, 'background-position: 0 0');
+    text = text.replace(/\b(0\s+){0,3}0\b/g, '0');
+    text = text.replace(/\b(background(?:-position)?):\s*(0|none)\b/g, '$1: 0 0');
     // keep white-space in `calc()`
     text = text.replace(/\bcalc\(\s*(.*?)\s*\)/g, function(a, b) {
         return 'calc(' + b.replace(/\s+/g, ' ') + ')';
     });
     // tidy `!important`
-    text = text.replace(/\s*!important(?=[;\s\}]|$)/g, ' !important');
+    text = text.replace(/\s*!important\b/g, ' !important');
     return text;
 }
 
@@ -161,6 +161,7 @@ function uglify(text) {
         b = b.replace(/^'([a-z_][\w-]*?)'$/g, '$1');
         return x(b);
     });
+    text = text.replace(/\)\s+(?=\w)/g, x(') '));
     text = text.replace(/([\{\}]+?)\s*\{/g, function(a, b) {
         b = b.replace(/\s+:/g, x(' :'));
         b = b.replace(/\s+\[/g, x(' ['));
@@ -169,7 +170,7 @@ function uglify(text) {
     });
     text = text.replace(/\s*([~+>:;,\[\]\(\)\{\}]|!important)\s*/g, '$1');
     // minify HEX color code
-    text = text.replace(/#([a-f0-9]{6})(?=[;,\s\}]|$)/g, function(a, b) {
+    text = text.replace(/#([a-f0-9]{6})\b/g, function(a, b) {
         var min = "";
         min += b[0] === b[1] ? b[0] : b[0] + b[1];
         min += b[2] === b[3] ? b[2] : b[2] + b[3];
@@ -190,8 +191,8 @@ function run() {
     var v = input.value;
     v = mode.value == 0 ? uglify(v) : beautify(v);
     if (mode.value == 1 && i_m.checked) {
-        v = v.replace(/\s*\}/g, ' }');
-        v = v.replace(/\}\s*/g, '} ');
+        v = v.replace(/\s*\}(?!$)/g, ' }');
+        v = v.replace(/\}\s*(?!$)/g, '} ');
         v = v.replace(/\{\s*/g, '{ ');
         v = v.replace(/\s*\{/g, ' {');
         v = v.replace(/;\n\s*/g, '; ');
