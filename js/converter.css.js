@@ -61,7 +61,7 @@ function common(text) {
         return (!b || b === '.') && c === '0' ? '0' : b + c + d;
     });
     // from `0 0` and `0 0 0` and `0 0 0 0` to `0`
-    text = text.replace(/\b(0\s+){0,3}0\b/g, '0');
+    text = text.replace(/:\s*(0\s+){0,3}0(?=[!,;\)\}]|$| !)/g, ':0');
     text = text.replace(/\b(background(?:-position)?)\s*:\s*(0|none)\b/gi, '$1: 0 0');
     text = text.replace(/\b(border(?:-radius)?|outline)\s*:\s*none\b/gi, '$1: 0 0');
     text = text.replace(/\b(calc\()\s*(.*?)\s*\)/gi, function(a, b, c) {
