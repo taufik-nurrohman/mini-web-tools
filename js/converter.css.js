@@ -47,25 +47,25 @@ function v(text) {
 function common(text) {
     text = text.replace(/\r/g, "");
     // lower-case hex color code
-    text = text.replace(/#([a-f0-9]{3}|[a-f0-9]{6})\b/gi, function(a, b) {
+    text = text.replace(/#([\da-f]{3}|[\da-f]{6})\b/gi, function(a, b) {
         return '#' + b.toLowerCase();
     });
     // from `#abc` to `#aabbcc`
-    text = text.replace(/#([a-f0-9])([a-f0-9])([a-f0-9])\b/gi, function(a, b, c, d) {
+    text = text.replace(/#([\da-f])([\da-f])([\da-f])\b/gi, function(a, b, c, d) {
         return '#' + b + b + c + c + d + d;
     });
     // from `0px` to `0`, `0.5px` to `.5px`
-    text = text.replace(/\b(0\.)?(\d+)([a-z]+|%)/g, function(a, b, c, d) {
+    text = text.replace(/\b(0\.)?(\d+)([a-z]+|%)/gi, function(a, b, c, d) {
         b = b === '0.' ? '.' : b;
         b = b || "";
-        return b + c + (!b && c === '0' ? "" : d);
+        return (!b || b === '.') && c === '0' ? '0' : b + c + d;
     });
     // from `0 0` and `0 0 0` and `0 0 0 0` to `0`
     text = text.replace(/\b(0\s+){0,3}0\b/g, '0');
-    text = text.replace(/\b(background(?:-position)?):\s*(0|none)\b/g, '$1: 0 0');
-    // keep white-space in `calc()`
-    text = text.replace(/\bcalc\(\s*(.*?)\s*\)/g, function(a, b) {
-        return 'calc(' + b.replace(/\s+/g, ' ') + ')';
+    text = text.replace(/\b(background(?:-position)?)\s*:\s*(0|none)\b/gi, '$1: 0 0');
+    text = text.replace(/\b(border(?:-radius)?|outline)\s*:\s*none\b/gi, '$1: 0 0');
+    text = text.replace(/\b(calc\()\s*(.*?)\s*\)/gi, function(a, b, c) {
+        return b + c.replace(/\s+/g, ' ') + ')';
     });
     // tidy `!important`
     text = text.replace(/\s*!important\b/g, ' !important');
@@ -106,7 +106,7 @@ function tidy_raw(text) {
                     s = s.replace(/,$/, "");
                     s = s.replace(/\s*([~+>])\s*/g, ' $1 ');
                     s = s.replace(/(\S)\s+(\S)/g, '$1 $2');
-                    s = s.replace(/\(([a-z0-9\-]+?)\s*:\s*(.*?)\)/g, '($1: $2)');
+                    s = s.replace(/\(([\da-z\-]+?)\s*:\s*(.*?)\)/g, '($1: $2)');
                 } else {
                     s = trim(s).replace(/(\s*;\s*)+/g, ';');
                     s = s.replace(/;$/, "");
@@ -152,17 +152,21 @@ function beautify(text) {
 }
 
 function uglify(text) {
+    R = 0;
     text = tidy_raw(text);
-    text = text.replace(/\bcalc\((.*?)\)/g, function(a, b) {
-        return 'calc(' + b.replace(/\s+/g, '\\x0') + ')';
+    // keep white-space in `calc()`
+    text = text.replace(/\b(calc\()(.*?)\)/gi, function(a, b, c) {
+        return b + c.replace(/\s+/g, '\\x0') + ')';
     });
-    text = text.replace(/("(?:[^"\\]|\\.)*?"|'(?:[^'\\]|\\.)*?'|\/\*[\s\S]*?\*\/)/g, function(a, b) {
+    text = text.replace(/("(?:[^"\\]|\\.)*?"|'(?:[^'\\]|\\.)*?'|\/\*[\s\S]*?\*\/)/gi, function(a, b) {
         b = b.replace(/^"([a-z_][\w-]*?)"$/g, '$1');
         b = b.replace(/^'([a-z_][\w-]*?)'$/g, '$1');
         return x(b);
     });
-    text = text.replace(/\)\s+(?=\w)/g, x(') '));
-    text = text.replace(/([\{\}]+?)\s*\{/g, function(a, b) {
+    // fix case for `url(foo.jpg) no-repeat`
+    text = text.replace(/\)\s+\b/g, x(') '));
+    // fix case for `#foo [bar="baz"]`, `[bar="baz"] .foo` and `#foo :first-child`
+    text = text.replace(/([^\{\}]+?)\s*\{/g, function(a, b) {
         b = b.replace(/\s+:/g, x(' :'));
         b = b.replace(/\s+\[/g, x(' ['));
         b = b.replace(/\]\s+/g, x('] '));
@@ -170,7 +174,7 @@ function uglify(text) {
     });
     text = text.replace(/\s*([~+>:;,\[\]\(\)\{\}]|!important)\s*/g, '$1');
     // minify HEX color code
-    text = text.replace(/#([a-f0-9]{6})\b/g, function(a, b) {
+    text = text.replace(/#([\da-f]{6})\b/g, function(a, b) {
         var min = "";
         min += b[0] === b[1] ? b[0] : b[0] + b[1];
         min += b[2] === b[3] ? b[2] : b[2] + b[3];
