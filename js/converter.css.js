@@ -158,10 +158,14 @@ function uglify(text) {
     text = text.replace(/\b(calc\()(.*?)\)/gi, function(a, b, c) {
         return b + c.replace(/\s+/g, '\\x0') + ')';
     });
-    text = text.replace(/("(?:[^"\\]|\\.)*?"|'(?:[^'\\]|\\.)*?'|\/\*[\s\S]*?\*\/)/gi, function(a, b) {
-        b = b.replace(/^"([a-z_][\w-]*?)"$/g, '$1');
-        b = b.replace(/^'([a-z_][\w-]*?)'$/g, '$1');
-        return x(b);
+    text = text.replace(/(\bcontent:|\b(?:format|local|url)\(|^|.)("(?:[^"\\]|\\.)*?"|'(?:[^'\\]|\\.)*?'|\/\*[\s\S]*?\*\/)/gi, function(a, b, c) {
+        if (b.length <= 1) {
+            c = c.replace(/^"([a-z_][\w-]*?)"$/gi, '$1');
+            c = c.replace(/^'([a-z_][\w-]*?)'$/gi, '$1');
+        } else if (b.toLowerCase() === 'url(') {
+            c = c.slice(1).slice(0, -1);
+        }
+        return b + x(c);
     });
     // fix case for `url(foo.jpg) no-repeat`
     text = text.replace(/\)\s+\b/g, x(') '));
