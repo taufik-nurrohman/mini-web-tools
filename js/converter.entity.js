@@ -64,14 +64,22 @@ to.html_encode = function(text) {
     return text.replace(/&/g, '&#38;').replace(/</g, '&#60;').replace(/>/g, '&#62;').replace(/"/g, '&#34;')
 };
 
+to.url_encode = function(text) {
+    return encodeURIComponent(text);
+};
+
+to.url_decode = function(text) {
+    return decodeURIComponent(text);
+};
+
 encode.onclick = function() {
     return output.value = to[mode.value](input.value), false;
 };
 
 decode.onclick = function() {
     var div = d.createElement('div');
-    div.innerHTML = input.value;
-    return output.value = div.innerHTML.replace(/&quot;/g, '"').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>'), false;
+    div.textContent = input.value;
+    return output.value = div.innerHTML.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>'), false;
 };
 
 })(window, document);
