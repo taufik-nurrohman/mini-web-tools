@@ -115,9 +115,10 @@ hr {
 main {
   margin-bottom:1em;
   *zoom:1;
+  overflow:hidden;
 }
 main:after {
-  content:" ";
+  content:"";
   display:table;
   clear:both;
 }

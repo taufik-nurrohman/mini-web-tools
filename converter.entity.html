@@ -12,21 +12,26 @@
     <fieldset>
       <legend>Settings</legend>
       <select id="mode">
-        <option value="unicode_hex">Unicode (hex)</option>
-        <option value="html_encode_hex">HTML Entity (hex)</option>
+        <option value="unicode_hex">Unicode Encode (hex)</option>
+        <option value="unicode_hex_decode">Unicode Decode (hex)</option>
+        <option value="html_encode_hex">HTML Entity Encode (hex)</option>
         <option value="html_encode_dec" selected>HTML Entity (dec)</option>
-        <option value="html_encode" selected>HTML Special Characters</option>
+        <option value="html_decode">HTML Entity Decode (dec/hex)</option>
+        <option value="html_encode" selected>HTML Special Characters Encode</option>
+        <option value="html_decode">HTML Special Characters Decode</option>
         <option value="url_encode">URL Characters Encode</option>
         <option value="url_decode">URL Characters Decode</option>
+        <option value="base64_encode">Base64 Encode</option>
+        <option value="base64_decode">Base64 Decode</option>
       </select>
       <br>
       <br>
-      <label title="For HTML Entity (dec) and HTML Special Characters"><input type="checkbox" id="n"> Allow Named Entities</label>
+      <label title="For HTML Entity (dec) and HTML Special Characters"><input type="checkbox" id="n" checked> Allow Named Entities</label>
       <br>
       <label><input type="checkbox" id="a"> Skip ASCII Characters</label>
       <br>
       <br>
-      <button id="encode">Encode</button> <button id="decode">Decode</button>
+      <button id="convert">Convert</button>
     </fieldset>
     <main>
       <div>
@@ -42,7 +47,7 @@
         </fieldset>
       </div>
     </main>
-    <p>&copy; 2016 <a href="http://latitudu.com">Taufik Nurrohman</a></p>
+    <p>&copy; 2016 <a href="https://github.com/tovic">Taufik Nurrohman</a></p>
     <script src="js/converter.entity.js"></script>
   </body>
 </html>

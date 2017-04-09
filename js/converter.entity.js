@@ -3,8 +3,7 @@
 var input = d.getElementById('input'),
     output = d.getElementById('output'),
     mode = d.getElementById('mode'),
-    encode = d.getElementById('encode'),
-    decode = d.getElementById('decode'),
+    convert = d.getElementById('convert'),
     n = d.getElementById('n'),
     a = d.getElementById('a'),
     ascii = /^[ -~\t\n\r]$/, // ASCII and common white-space(s) to skip
@@ -26,6 +25,12 @@ to.unicode_hex = function(text) {
         s += '\u005C\u0075' + c;
     }
     return s;
+};
+
+to.unicode_hex_decode = function(text) {
+    var s = d.createElement('div');
+    s.innerHTML = text.replace(/\\u([\da-f]{4})/gi, '&#x$1;');
+    return s.innerHTML.replace(/&(amp|#38);/g, '&').replace(/&(lt|#60);/g, '<').replace(/&(gt|#62);/g, '>').replace(/&(quot|#34);/g, '"').replace(/&(apos|#39);/g, "'");
 };
 
 to.html_encode_hex = function(text) {
@@ -59,9 +64,15 @@ to.html_encode_dec = function(text) {
 
 to.html_encode = function(text) {
     if (n.checked) {
-        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+        return text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')/*.replace(/'/g, '&apos;')*/;
     }
-    return text.replace(/&/g, '&#38;').replace(/</g, '&#60;').replace(/>/g, '&#62;').replace(/"/g, '&#34;')
+    return text.replace(/&/g, '&#38;').replace(/</g, '&#60;').replace(/>/g, '&#62;').replace(/"/g, '&#34;')/*.replace(/'/g, '&#39;')*/;
+};
+
+to.html_decode = function(text) {
+    var s = d.createElement('div');
+    d.innerHTML = text;
+    return d.innerHTML.replace(/&(amp|#38);/g, '&').replace(/&(lt|#60);/g, '<').replace(/&(gt|#62);/g, '>').replace(/&(quot|#34);/g, '"').replace(/&(apos|#39);/g, "'");
 };
 
 to.url_encode = function(text) {
@@ -72,14 +83,25 @@ to.url_decode = function(text) {
     return decodeURIComponent(text);
 };
 
-encode.onclick = function() {
+to.base64_encode = function(text) {
+    return btoa(text);
+};
+
+to.base64_decode = function(text) {
+    try {
+        return atob(text);
+    } catch (e) {
+        return e;
+    }
+};
+
+convert.onclick = function() {
     return output.value = to[mode.value](input.value), false;
 };
 
-decode.onclick = function() {
-    var div = d.createElement('div');
-    div.textContent = input.value;
-    return output.value = div.innerHTML.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>'), false;
+mode.onchange = function() {
+    var v = this.value;
+    n.checked = v === 'html_encode';
 };
 
 })(window, document);
