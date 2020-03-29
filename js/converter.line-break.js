@@ -150,6 +150,7 @@ function blogger(text) {
     text = text.replace(/ id="BLOGGER_PHOTO_ID_\d+"/g, "");
     text = text.replace(RegExp('<div class="separator( [^"]*?)?"(' + Z + ')([\\s\\S]*?)<\\/div>', 'g'), '<figure class="container$1"$2$3</figure>');
     text = text.replace(RegExp('<figure class="separator( [^"]*?)?"(' + Z + ')([\\s\\S]*?)<\\/figure>', 'g'), '<figure class="container$1"$2$3</figure>');
+    text = text.replace(RegExp('<div class="button-group( [^"]*?)?"(' + Z + ')([\\s\\S]*?)<\\/div>', 'g'), '<p class="button-group$1"$2$3</p>');
     text = text.replace(/ imageanchor="\d+"/g, "");
     // start: my blog specific markup
     text = text.replace(/ data-codetype=/g, ' data-title=');
@@ -176,6 +177,7 @@ function blogger(text) {
     text = text.replace(/\/\/hompimpaalaihumgambreng\./g, '//dte-feed.');
     text = text.replace(/\bJQuery\b/g, 'jQuery');
     text = text.replace(/<(t[rhd]) id=".*?">/g, '<$1>');
+    text = text.replace(/<code class="javascript">/g, '<code class="js">');
     // end: my blog specific markup
     return text;
 }
